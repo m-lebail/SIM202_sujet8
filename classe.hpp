@@ -9,7 +9,7 @@ class point
     double x,y;
     point(double xi=0.,double yi=0.) :x(xi),y(yi){}  
 };
-double distance(const point& P1, const point& P2);
+double Distance(const point& P1, const point& P2);
 
 class segment
 {
