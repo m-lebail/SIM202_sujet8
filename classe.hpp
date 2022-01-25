@@ -19,6 +19,7 @@ class segment
 
 };
 double produit_scalaire(const segment& S1,const segment& S2);
+double norme(const segment& S1);
 
 class arête: public segment
 {
@@ -33,3 +34,5 @@ class obstacle
     int nbre_sommets;
     point * sommets;
 };
+
+#endif

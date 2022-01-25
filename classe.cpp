@@ -28,3 +28,8 @@ double produit_scalaire(const segment& S1,const segment& S2)
     double p=v1x*v2x+v1y*v2y;
     return(p);
 }
+double norme(const segment& S1)
+{
+    double N=produit_scalaire(S1,S1);
+    return(N);
+}
