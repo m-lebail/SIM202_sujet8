@@ -1,5 +1,19 @@
 #include "dijkstra.hpp"
+#include "graph.hpp"
+#include "classe.hpp"
 
-int main(){
-	return 0;
+Graph& dijkstra(const Graph& planification){
+	Graph trajectoire;
+	arcs* liste_arcs = planification.arcs;
+	nbarcs = planification.nbarcs;
+	for (int i = 0; i < nbarcs; i++){
+		
+	}
+
+
+
+
+
+	return trajectoire;
 }
+
