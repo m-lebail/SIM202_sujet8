@@ -1,5 +1,5 @@
-#ifndef classe_h
-#define classe_h
+#ifndef classe_hpp
+#define classe_hpp
 #include <iostream>
 using namespace std ;
 
@@ -14,14 +14,14 @@ double Distance(const point& P1, const point& P2);
 class segment
 {
     public:
-    point P1,P2;
+    point P1, P2;
     segment(const point& P1, const point& P2);
 
 };
 double produit_scalaire(const segment& S1,const segment& S2);
 double norme(const segment& S1);
 
-class arête: public segment
+class arete: public segment
 {
 
 };
@@ -30,9 +30,15 @@ class arc: public segment
 
 };
 class obstacle
-{
-    int nbre_sommets;
+{	
+	public:
+    int nbsom;
     point * sommets;
+    obstacle(int ns): nbsom(0){sommets=new point[ns];}
+    void add(const point& P);
+    obstacle(const obstacle& Ob);
+    ~obstacle();
+    obstacle& operator=(const obstacle& Ob);
 };
-
+void affichage(const obstacle& Ob);
 #endif
