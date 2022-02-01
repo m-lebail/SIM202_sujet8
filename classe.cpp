@@ -57,12 +57,25 @@ double norme(const segment& S1)
     N=sqrt(N);
     return(N);
 }
-segment normale(const segment& S1)
+segment normale_au_milieu(const segment& S1)
 {
     point P1=S1.P1;
     point P2=S1.P2;
     double x_M=(P1.x+P2.x)/2;
     double y_M=(P1.y+P2.y)/2;
+    double x_N=P2.y-P1.y+x_M;
+    double y_N=P1.x-P2.x+y_M;
+    point M=point(x_M,y_M);
+    point N=point(x_N,y_N);
+    segment A=segment(M,N);
+    return(A);
+}
+segment normale(const segment& S1)
+{
+    point P1=S1.P1;
+    point P2=S1.P2;
+    double x_M=P1.x;
+    double y_M=P1.y;
     double x_N=P2.y-P1.y+x_M;
     double y_N=P1.x-P2.x+y_M;
     point M=point(x_M,y_M);
@@ -76,7 +89,32 @@ void affichage(const segment S)
     printf("le deuxieme point du segment est :(%lf,%lf)\n",S.P2.x,S.P2.y);
 }
 
+
 bool point_segment(const segment& S,const point& P,double eps)
+{
+    segment S1=segment(S.P1,P);
+    double projete=produit_scalaire(S,S1)/(norme(S));
+    double x_E=S.P1.x+projete*(S.P2.x-S.P1.x)/norme(S);
+    double y_E=S.P1.y+projete*(S.P2.y-S.P1.y)/norme(S);
+    point E=point(x_E,y_E);
+    affichage(E);
+    double d=Distance(E,P);
+    printf("d vaut %lf\n",d);
+    if(d<=eps)
+    {
+        double MIN=min(S.P1.x,S.P2.x)-eps;
+        double MAX=max(S.P1.x,S.P2.x)+eps;
+        if((MIN<=x_E)&&(MAX>=x_E))
+        {
+            printf("Le point est dans le segment\n");
+            return(true);
+        }
+    }
+    printf("Le point n'est pas dans le segment\n");  
+    return(false);
+}
+
+bool point_segment1(const segment& S,const point& P,double eps)
 {
     double a=(S.P1.y-S.P2.y)/(S.P1.x-S.P2.x);
     double b=a*S.P1.x-S.P1.y;
@@ -84,7 +122,7 @@ bool point_segment(const segment& S,const point& P,double eps)
         {
         double MIN=min(S.P1.y,S.P2.y)-eps;
         double MAX=max(S.P1.y,S.P2.y)+eps;
-        if((MIN<=P.y)&(MAX>=P.y))
+        if((MIN<=P.y)&&(MAX>=P.y))
         {
             printf("Le point est dans le segment\n");
             return(true);

@@ -20,9 +20,11 @@ class segment
 };
 double produit_scalaire(const segment& S1,const segment& S2);
 double norme(const segment& S1);
+segment normale_au_milieu(const segment& S1);
 segment normale(const segment& S1);
 void affichage(const segment S);
 bool point_segment(const segment& S,const point& P,double eps);
+bool point_segment1(const segment& S,const point& P,double eps);
 
 class arete: public segment
 {
@@ -37,7 +39,7 @@ class obstacle
 	public:
     int nbsom;
     point * sommets;
-    obstacle(int ns,point * L); /*: n bsom(0){sommets=new point[ns];}*/
+    obstacle(int ns,point * L); /*: nbsom(0){sommets=new point[ns];}*/
     void add(const point& P);
     obstacle(const obstacle& Ob);
     ~obstacle();
