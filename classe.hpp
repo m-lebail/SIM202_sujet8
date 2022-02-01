@@ -34,7 +34,7 @@ class obstacle
 	public:
     int nbsom;
     point * sommets;
-    obstacle(int ns): nbsom(0){sommets=new point[ns];}
+    obstacle(int ns,point * L); /*: n bsom(0){sommets=new point[ns];}*/
     void add(const point& P);
     obstacle(const obstacle& Ob);
     ~obstacle();
