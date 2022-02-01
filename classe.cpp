@@ -2,6 +2,13 @@
 #include <cmath>
 #include "classe.hpp"
 
+
+void affichage(const point P) 
+{
+    printf("le point est :(%lf,%lf)\n",P.x,P.y);
+
+}
+
 double Distance(const point& P1, const point& P2)
 {
     double distance;
@@ -53,6 +60,21 @@ double norme(const segment& S1)
 //=========================================================================
 //Obstacle
 //=========================================================================
+obstacle ::obstacle(int ns,point * L)
+{
+    nbsom=ns;
+    sommets=new point [ns];
+    for(int i=0;i<ns;i++)
+        {
+            sommets[i]=L[i];
+            printf("étape %d\n",i);
+            affichage(L[i]);
+            affichage(sommets[i]);
+        }
+
+}
+
+
 obstacle ::obstacle(const obstacle& Ob)
 {
     nbsom=Ob.nbsom;
@@ -81,7 +103,7 @@ void obstacle:: add(const point& P)
     nbsom+=1;
     point * sommets1;
     sommets1=new point [nbsom-1];
-    sommets1=sommets;
+     for(int i=0;i<nbsom-1;i++)sommets1[i]=sommets[i];
     delete[] sommets;
     sommets=new point [nbsom];
     for(int i=0;i<nbsom-1;i++)sommets[i]=sommets1[i];
