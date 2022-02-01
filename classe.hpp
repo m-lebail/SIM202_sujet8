@@ -20,6 +20,9 @@ class segment
 };
 double produit_scalaire(const segment& S1,const segment& S2);
 double norme(const segment& S1);
+segment normale(const segment& S1);
+void affichage(const segment S);
+bool point_segment(const segment& S,const point& P,double eps);
 
 class arete: public segment
 {

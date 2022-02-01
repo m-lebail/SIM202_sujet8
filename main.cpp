@@ -4,11 +4,12 @@
 int main()
 {
 	std::cout << "Hello world!" << std::endl;
-	point P1=point(4,7);
-	point P2=point(1,2);
-	point P3=point(2,2);
+	point P1=point(0,0);
+	point P2=point(1,0);
+	point P3=point(0.5,0.001);
 	double a=Distance(P1,P2);
 	segment S1=segment(P1,P2);
+	/*
 	printf("P1.x vaut:%lf\n ",P1.x);
 	double b=norme(S1);
 	point  LA[3]={P1,P2,P3};
@@ -25,4 +26,9 @@ int main()
 	
 	//affichage(G);
 	printf("P1.x vaut:%lf\n ",P1.x);
+	*/
+	affichage(S1);
+	point_segment(S1,P3,0.1);
+	segment S2=normale(S1);
+	affichage(S2);
 }
