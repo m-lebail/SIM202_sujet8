@@ -1,0 +1,17 @@
+pkg load matgeom;
+fileID = fopen('obstacles.txt','r');
+formatSpec = '%f %f';
+sizeA = [2 5];
+sizeB = [2 4];
+A = fscanf(fileID,formatSpec,sizeA);
+B = fscanf(fileID,formatSpec,sizeB);
+fclose(fileID);
+fileID = fopen('start_end.txt','r');
+START = fscanf(fileID,formatSpec,[2 1]);
+ENDING = fscanf(fileID,formatSpec,[2 1]);
+fclose(fileID);
+figure; 
+drawPolygon(START','g+');
+drawPolygon(A', 'r','lineWidth', 2);
+drawPolygon(B', 'b','lineWidth', 2);
+drawPolygon(ENDING','g+');
