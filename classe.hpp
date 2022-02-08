@@ -38,9 +38,10 @@ class arc: public segment
 class obstacle
 {	
 	public:
+	int numerobs;
     int nbsom;
     point * sommets;
-    obstacle(int ns,point * L); /*: nbsom(0){sommets=new point[ns];}*/
+    obstacle(int numero,int ns,point * L); /*: nbsom(0){sommets=new point[ns];}*/
     void add(const point& P);
     obstacle(const obstacle& Ob);
     ~obstacle();

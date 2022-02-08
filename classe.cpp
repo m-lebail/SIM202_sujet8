@@ -150,15 +150,18 @@ bool intersection_segment(segment seg1,segment seg2, double epsilon)
 
     if(  (point_a == point_p) || (point_a == point_q) || (point_b == point_p) || (point_b == point_q) )
     {
+        printf("Les deux segments ne s'intersectent pas\n");
         return false;
     }
     if(  abs( produit_scalaire(seg1,seg2) - norme(seg1)*norme(seg2) ) <= epsilon )
     {
         if(point_segment(seg2,point_a,epsilon) || point_segment(seg2,point_b,epsilon) ) //il n'y avait pas d'argument epsilon
         {
+            printf("Les deux segments s'intersectent\n");
             return true;
-        }
-        else{return false;}
+        } else{
+            printf("Les deux segments ne s'intersectent pas\n");
+            return false;}
     }
     segment segment_ab=segment(point_a,point_b);
     segment segment_pq=segment(point_p,point_q);
@@ -170,8 +173,10 @@ bool intersection_segment(segment seg1,segment seg2, double epsilon)
 
     double alpha = produit_scalaire(segment_ap,normale_pq) / produit_scalaire(segment_ab,normale_pq);
     double beta = produit_scalaire(segment_pa,normale_ab) / produit_scalaire(segment_pq,normale_ab);
+    printf("alpha=%lf\n",alpha);
+    printf("beta=%lf\n",beta);
 
-    if( (0 <= alpha <= 1) && (0 <= beta <= 1))
+    if( (0 <= alpha) && (alpha <= 1) && (0 <= beta) && (beta <= 1))
     {
         printf("Les deux segments s'intersectent\n");
         return true;
@@ -186,8 +191,9 @@ bool intersection_segment(segment seg1,segment seg2, double epsilon)
 //=========================================================================
 //Obstacle
 //=========================================================================
-obstacle ::obstacle(int ns,point * L)
+obstacle ::obstacle(int numero,int ns,point * L)
 {
+    numerobs=numero;
     nbsom=ns;
     sommets=new point [ns];
     for(int i=0;i<ns;i++)
@@ -205,6 +211,7 @@ obstacle ::obstacle(int ns,point * L)
 
 obstacle ::obstacle(const obstacle& Ob)
 {
+    numerobs=Ob.numerobs;
     nbsom=Ob.nbsom;
     sommets=0;
     for(int i=0;i<nbsom;i++) sommets[i]=Ob.sommets[i];
@@ -221,6 +228,7 @@ obstacle& obstacle::operator=(const obstacle& Ob)
         delete[] sommets;
         sommets=new point [Ob.nbsom];
         nbsom=Ob.nbsom;
+        numerobs=Ob.numerobs;
     }
     for(int i=0;i<nbsom;i++) sommets[i]=Ob.sommets[i];
     return *this;
@@ -241,8 +249,9 @@ void obstacle:: add(const point& P)
 void affichage(const obstacle& Ob) 
 {
     int nbsom=Ob.nbsom;
+    int numero=Ob.numerobs;
     point * sommets=Ob.sommets;
-    printf("Il y a  %d sommets\n",nbsom);
+    printf("Sur l'obstacle numero:%d il y a  %d sommets\n",numero,nbsom);
     for(int i=0;i<nbsom;i++) {
         printf("le sommet %d est :(%lf,%lf)\n",i,sommets[i].x,sommets[i].y);
     }
