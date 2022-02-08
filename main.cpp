@@ -12,12 +12,14 @@ int main()
 	segment S1=segment(P1,P2);
 	segment S2=segment(P2,P3);
 	segment S3=segment(P3,P4);
-	/*
+	segment S4=segment(P4,P1);
+	
 	printf("P1.x vaut:%lf\n ",P1.x);
 	double b=norme(S1);
-	point  LA[3]={P1,P2,P3};
-	obstacle O(1,3,LA);
+	point  LA[4]={P1,P2,P3,P4};
+	obstacle O(1,4,LA);
 	affichage(O);
+	/*
 	O.add(P1);
 	affichage(O);
 	O.add(P2);
@@ -36,4 +38,9 @@ int main()
 
 	printf("%d\n",w);
 	*/
+	segment * L=O.liste_segment();
+	for(int i=0;i<4;i++)
+	{
+		affichage(L[i]);
+	}
 }

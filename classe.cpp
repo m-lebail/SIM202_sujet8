@@ -233,6 +233,16 @@ obstacle& obstacle::operator=(const obstacle& Ob)
     for(int i=0;i<nbsom;i++) sommets[i]=Ob.sommets[i];
     return *this;
 }
+segment* obstacle ::liste_segment()
+{
+    segment* list=new segment[nbsom];
+    for(int i=0;i<nbsom-1;i++)
+    {
+        list[i]=segment(sommets[i],sommets[i+1]);
+    } 
+    list[nbsom-1]=segment(sommets[nbsom-1],sommets[0]);
+    return(list);
+}
 
 void obstacle:: add(const point& P)
 {
@@ -255,4 +265,17 @@ void affichage(const obstacle& Ob)
     for(int i=0;i<nbsom;i++) {
         printf("le sommet %d est :(%lf,%lf)\n",i,sommets[i].x,sommets[i].y);
     }
+}
+
+int comptage_intersection(const segment S, const obstacle Ob)
+{
+    /*
+    double x_M=(P1.x+P2.x)/2;
+    double y_M=(P1.y+P2.y)/2;
+    point M=point(x_M,y_M);
+    double x_M1=2*P1.x-x_M;
+    double y_M1=2*P1.y-y_M;
+    point M1=point(x_M1,y_M1);
+    */
+    return(0);
 }

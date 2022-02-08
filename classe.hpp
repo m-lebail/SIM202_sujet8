@@ -46,6 +46,9 @@ class obstacle
     obstacle(const obstacle& Ob);
     ~obstacle();
     obstacle& operator=(const obstacle& Ob);
+    segment* liste_segment();
 };
 void affichage(const obstacle& Ob);
+
+int comptage_intersection(const segment S, const obstacle Ob);
 #endif
