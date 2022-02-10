@@ -9,7 +9,7 @@ int main()
 	point P3=point(1,1);
 	point P4=point(0,1);
 	point P5=point(2,2);
-	double a=Distance(P1,P2);
+	//double a=Distance(P1,P2);
 	segment S1=segment(P1,P2);
 	segment S2=segment(P2,P3);
 	segment S3=segment(P3,P4);
@@ -42,11 +42,12 @@ int main()
 	printf("%d\n",w);
 	*/
 	segment * L=O.liste_segment();
+	/*
 	for(int i=0;i<4;i++)
 	{
 		affichage(L[i]);
 	}
-	printf("Bonjour\n");
+	*/
 	int m=comptage_intersection(SA,O);
 	printf("m vaut %d\n",m);
 }

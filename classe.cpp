@@ -6,7 +6,7 @@
 void affichage(const point P) 
 {
     printf("le point est :(%lf,%lf)\n",P.x,P.y);
-
+        printf("\n");
 }
 bool operator == (const point& P1,const point& P2)
 {
@@ -96,6 +96,7 @@ void affichage(const segment S)
 {
     printf("le premier point du segment est :(%lf,%lf)\n",S.P1.x,S.P1.y);
     printf("le deuxieme point du segment est :(%lf,%lf)\n",S.P2.x,S.P2.y);
+    printf("\n");
 }
 
 
@@ -106,23 +107,23 @@ bool point_segment(const segment& S,const point& P,double eps)
     double x_E=S.P1.x+projete*(S.P2.x-S.P1.x)/norme(S);
     double y_E=S.P1.y+projete*(S.P2.y-S.P1.y)/norme(S);
     point E=point(x_E,y_E);
-    affichage(E);
+   //affichage(E);
     double d=Distance(E,P);
-    printf("d vaut %lf\n",d);
+    //printf("d vaut %lf\n",d);
     if(d<=eps)
     {
         double MIN=min(S.P1.x,S.P2.x)-eps;
         double MAX=max(S.P1.x,S.P2.x)+eps;
         if((MIN<=x_E)&&(MAX>=x_E))
         {
-            printf("Le point est dans le segment\n");
+            //printf("Le point est dans le segment\n");
             return(true);
         }
     }
-    printf("Le point n'est pas dans le segment\n");  
+    //printf("Le point n'est pas dans le segment\n");  
     return(false);
 }
-
+//segment1 est une fonction devenu inutile
 bool point_segment1(const segment& S,const point& P,double eps)
 {
     double a=(S.P1.y-S.P2.y)/(S.P1.x-S.P2.x);
@@ -138,7 +139,7 @@ bool point_segment1(const segment& S,const point& P,double eps)
         }
 
          } 
-    printf("Le point n'est pas dans le segment\n");  
+    //printf("Le point n'est pas dans le segment\n");  
     return(false);
 }
 bool intersection_segment(segment seg1,segment seg2, double epsilon)
@@ -150,17 +151,17 @@ bool intersection_segment(segment seg1,segment seg2, double epsilon)
 
     if(  (point_a == point_p) || (point_a == point_q) || (point_b == point_p) || (point_b == point_q) )
     {
-        printf("Les deux segments ne s'intersectent pas\n");
+        //printf("Les deux segments ne s'intersectent pas\n");
         return false;
     }
     if(  abs( produit_scalaire(seg1,seg2) - norme(seg1)*norme(seg2) ) <= epsilon )
     {
         if(point_segment(seg2,point_a,epsilon) || point_segment(seg2,point_b,epsilon) ) //il n'y avait pas d'argument epsilon
         {
-            printf("Les deux segments s'intersectent\n");
+            //printf("Les deux segments s'intersectent\n");
             return true;
         } else{
-            printf("Les deux segments ne s'intersectent pas\n");
+            //printf("Les deux segments ne s'intersectent pas\n");
             return false;}
     }
     segment segment_ab=segment(point_a,point_b);
@@ -173,17 +174,18 @@ bool intersection_segment(segment seg1,segment seg2, double epsilon)
 
     double alpha = produit_scalaire(segment_ap,normale_pq) / produit_scalaire(segment_ab,normale_pq);
     double beta = produit_scalaire(segment_pa,normale_ab) / produit_scalaire(segment_pq,normale_ab);
+    /*
     printf("alpha=%lf\n",alpha);
     printf("beta=%lf\n",beta);
-
+    */
     if( (0 <= alpha) && (alpha <= 1) && (0 <= beta) && (beta <= 1))
     {
-        printf("Les deux segments s'intersectent\n");
+        //printf("Les deux segments s'intersectent\n");
         return true;
     }
     else
     {
-        printf("Les deux segments ne s'intersectent pas\n");
+        //printf("Les deux segments ne s'intersectent pas\n");
         return false;
     }
 
@@ -261,16 +263,16 @@ void affichage(const obstacle& Ob)
     int nbsom=Ob.nbsom;
     int numero=Ob.numerobs;
     point * sommets=Ob.sommets;
-    printf("Sur l'obstacle numero:%d il y a  %d sommets\n",numero,nbsom);
+    printf("Sur l'obstacle numero:%d il y a  %d sommets :\n",numero,nbsom);
     for(int i=0;i<nbsom;i++) {
         printf("le sommet %d est :(%lf,%lf)\n",i,sommets[i].x,sommets[i].y);
     }
+    printf("\n");
 }
 
 int comptage_intersection(const segment& S, const obstacle& Ob)
 {
     int somme=0;
-    printf("Oui\n");
     point P1=S.P1;
     point P2=S.P2;
     double x_M=(P1.x+P2.x)/2;
@@ -286,7 +288,7 @@ int comptage_intersection(const segment& S, const obstacle& Ob)
     
     for (int i=0;i<N;i++)
     {
-        printf("%d\n",i);
+        //printf("%d\n",i);
         if(intersection_segment(S1,Liste[i],0.1)==true)
         {
             somme+=1;
