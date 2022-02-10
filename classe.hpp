@@ -41,7 +41,7 @@ class obstacle
 	int numerobs;
     int nbsom;
     point * sommets;
-    obstacle(int numero,int ns,point * L); /*: nbsom(0){sommets=new point[ns];}*/
+    obstacle(int numero=0,int ns=0, point* L=new point[0]);
     void add(const point& P);
     obstacle(const obstacle& Ob);
     ~obstacle();
@@ -49,6 +49,5 @@ class obstacle
     segment* liste_segment();
 };
 void affichage(const obstacle& Ob);
-
-int comptage_intersection(const segment S, const obstacle Ob);
+int comptage_intersection(const segment& S, const obstacle& Ob);
 #endif

@@ -8,14 +8,17 @@ int main()
 	point P2=point(1,0);
 	point P3=point(1,1);
 	point P4=point(0,1);
+	point P5=point(2,2);
 	double a=Distance(P1,P2);
 	segment S1=segment(P1,P2);
 	segment S2=segment(P2,P3);
 	segment S3=segment(P3,P4);
 	segment S4=segment(P4,P1);
-	
-	printf("P1.x vaut:%lf\n ",P1.x);
-	double b=norme(S1);
+
+	segment SA=segment(P1,P2);
+	affichage(SA);
+	//printf("P1.x vaut:%lf\n ",P1.x);
+	//double b=norme(S1);
 	point  LA[4]={P1,P2,P3,P4};
 	obstacle O(1,4,LA);
 	affichage(O);
@@ -43,4 +46,9 @@ int main()
 	{
 		affichage(L[i]);
 	}
+	printf("Bonjour\n");
+	int m=comptage_intersection(SA,O);
+	printf("m vaut %d\n",m);
 }
+
+//vérifier operator = pour obstacle!
