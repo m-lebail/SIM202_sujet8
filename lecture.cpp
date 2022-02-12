@@ -1,8 +1,8 @@
 #include "lecture.hpp"
 
-vector< vector <point> > lst_obs(char* nom_fichier){
+vector< obstacle> reading(char* nom_fichier){
 	vector <vector <point> > list_obstacles;
-	vector <point> obstacle;
+	vector <point> Ob;
 	ifstream infile(nom_fichier);
 	string line;
 	string obs("/");
@@ -13,8 +13,8 @@ vector< vector <point> > lst_obs(char* nom_fichier){
 	{
 		if (line[0] == obs[0]){
 			nb_obs++;
-			list_obstacles.push_back(obstacle);
-			obstacle.clear();
+			list_obstacles.push_back(Ob);
+			Ob.reset();
 			continue;
 		}
 		if (line[0] == comment[0]){
@@ -23,24 +23,23 @@ vector< vector <point> > lst_obs(char* nom_fichier){
 		istringstream iss(line);
 		iss >> a >> b;
 		point p(a,b);
-		obstacle.push_back(p);
+		Ob+=p;
 	}
 	list_obstacles.push_back(obstacle);
 	infile.close();
 	printf("fin lecture \n");
 
 	//Test lecture
-	for (auto iti = list_obstacles.begin(); iti != list_obstacles.end();++iti){
-		if (iti == list_obstacles.begin()){
-			cout << "Debut " << iti->begin()->x <<" "<< iti->begin()->y << endl;
-  			cout << "Fin " << ++iti->begin()->x <<" " << ++iti->begin()->y << endl;
-			}
-			else {
-				cout << "Nouvel obstacle " << endl;
-				for (auto itj = iti->begin();itj != iti->end();++itj){
-					cout << "(" << itj->x << "," << itj->y << ")" << endl;
-			}
-		}
-	}
+	// for (auto iti = list_obstacles.begin(); iti != list_obstacles.end();++iti){
+	// 	if (iti == list_obstacles.begin()){
+	// 		cout << "Debut " << iti->begin()->x <<" "<< iti->begin()->y << endl;
+  	// 		cout << "Fin " << ++iti->begin()->x <<" " << ++iti->begin()->y << endl;
+	// 		}
+	// 		else {
+	// 			cout << "Nouvel obstacle " << endl;
+	// 			cout << *iti;
+	// 		}
+	// 	}
+	// }
 	return list_obstacles;
 }

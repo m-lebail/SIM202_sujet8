@@ -3,21 +3,23 @@
 
 int main()
 {
-	point P1=point(4,7);
-	point P2=point(1,2);
-	point P3=point(2,2);
-	//double a=Distance(P1,P2);
-	//segment S1=segment(P1,P2);
-	//printf("P1.x vaut:%lf\n ",P1.x);
-	//double b=norme(S1);
-	point  LA[3]={P1,P2,P3};
-	obstacle P;
-	obstacle O(3,LA);
-	P+=P1;
-	P+=P2;
-	P+=P3;
-	cout << O;
-	cout << P;
+	char* nom_fichier = (char*)"obs.txt"; 
+
+	vector <obstacle> obstacles;
+	
+	obstacles = reading(nom_fichier);
+
+	//Affichage de la lecture
+	for (auto iti = obstacles.begin(); iti != obstacles.end();++iti){
+		if (iti == obstacles.begin()){
+			cout << "Debut " << iti->sommets.begin()->x <<" "<< iti->sommets.begin()->y << endl;
+  			cout << "Fin " << ++iti->sommets.begin()->x <<" " << ++iti->sommets.begin()->y << endl;
+			}
+			else {
+				cout << "Nouvel obstacle " << endl;
+				cout << *iti;
+			}
+		}
 	//obstacle G(O);
 	//printf("La distance entre les points est de :%lf",a);
 	//printf("\n");
