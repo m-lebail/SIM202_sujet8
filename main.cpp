@@ -1,8 +1,9 @@
 #include <iostream>
 #include "classe.hpp"
+#include "lecture.hpp"
 
 int main()
-{
+{	
 	char* nom_fichier = (char*)"obs.txt"; 
 
 	vector <obstacle> obstacles;
@@ -20,15 +21,5 @@ int main()
 				cout << *iti;
 			}
 		}
-	//obstacle G(O);
-	//printf("La distance entre les points est de :%lf",a);
-	//printf("\n");
-	//printf("La norme du segement est :%lf",b);
-	//affichage(O);
-	//arc A(S1,b);
-	//cout << A;
-	//printf("La norme du segement est :%lf\n",b);
 	
-	//affichage(G);
-	//printf("P1.x vaut:%lf\n ",P1.x);
 }

@@ -55,6 +55,7 @@ class obstacle
     ~obstacle();
     obstacle& operator=(const obstacle& Ob);
     obstacle& operator+=(point& P);
+    obstacle& reset();
 };
 ostream& operator<<(ostream& os,const obstacle& Ob);
 #endif

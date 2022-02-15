@@ -8,6 +8,6 @@
 
 using namespace std;
 
-vector<obstacle> reading(char* nom_fichier);
+vector< obstacle > reading(char* nom_fichier);
 
 #endif 

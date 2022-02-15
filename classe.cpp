@@ -54,7 +54,7 @@ ostream& operator <<(ostream& os,const arc& A){
 //=========================================================================
 obstacle::obstacle(){
     nbsom = 0;
-    sommets = vector<point>(1,point());
+    sommets = vector<point>(0,point());
 }
 
 
@@ -87,6 +87,11 @@ obstacle& obstacle::operator=(const obstacle& Ob)
         nbsom=Ob.nbsom;
     }
     for(auto it=Ob.sommets.begin();it != Ob.sommets.end();it++) sommets.push_back(*it);
+    return *this;
+}
+obstacle& obstacle::reset(){
+    this->nbsom=0;
+    this->sommets.clear();
     return *this;
 }
 
