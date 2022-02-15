@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1644922048 source:c:\users\yokoz\documents\ensta\2a\sim202\projet\classe.cpp
+	<cstdlib>
+	<cmath>
+	<vector >
+	"classe.hpp"
+
+1644921974 c:\users\yokoz\documents\ensta\2a\sim202\projet\classe.hpp
+	<iostream>
+	<vector >
+
+1644921400 source:c:\users\yokoz\documents\ensta\2a\sim202\projet\main.cpp
+	<iostream>
+	"classe.hpp"
+	<vector>
+
