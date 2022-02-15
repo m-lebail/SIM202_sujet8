@@ -278,7 +278,7 @@ int comptage_intersection(const segment& S, const obstacle& Ob)
     double x_M=(P1.x+P2.x)/2;
     double y_M=(P1.y+P2.y)/2;
     point M=point(x_M,y_M);
-    double x_M1=10+x_M;
+    double x_M1=100+x_M;
     double y_M1=y_M;
     point M1=point(x_M1,y_M1);
     segment S1=segment(M,M1);
@@ -296,3 +296,4 @@ int comptage_intersection(const segment& S, const obstacle& Ob)
     }
     return(somme);
 }
+

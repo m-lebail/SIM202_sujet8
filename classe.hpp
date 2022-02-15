@@ -50,4 +50,5 @@ class obstacle
 };
 void affichage(const obstacle& Ob);
 int comptage_intersection(const segment& S, const obstacle& Ob);
+//point* dijkstra(const point& A,const point& B, const graph& G);
 #endif

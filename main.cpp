@@ -50,6 +50,9 @@ int main()
 	*/
 	int m=comptage_intersection(SA,O);
 	printf("m vaut %d\n",m);
-}
 
+	int S [4]={1,2,3,4};
+	int r=S[1];
+	printf("r vaut :%d",r);
+}
 //vérifier operator = pour obstacle!
