@@ -1,27 +1,31 @@
 #include <iostream>
 #include "classe.hpp"
 #include <vector>
+using namespace std ;
 
 int main()
 {
-	std::cout << "Hello world!" << std::endl;
-	point P1=point(0,2);
-	point P2=point(2,2);
-	point P3=point(2,6);
-	point P4=point(0,6);
-	point P5 =point(4,0);
-	point P6 =point(8,0);
-	point P7 =point(8,8);
-	point P8 = point(4,4);
+	cout << "Hello world!" << endl;
+	Point P1=Point(0,3);
+	Point P2=Point(2,3);
+	Point P3=Point(2,5);
+	Point P4=Point(0,5);
+	Point P5 =Point(4,0);
+	Point P6 =Point(6,0);
+	Point P7 =Point(6,2);
+	Point P8 = Point(4,2);
 
 	//double a=distance(P1,P2);
-	segment S1=segment(P4,P5);
-	segment S2=segment(P2,P5);
+	Segment S1=Segment(P2,P8);
+	Segment S2=Segment(P1,P2);
+
+
+	//cout << S1 << S2 << endl;
 	//int m = 0;
 	/*
 	printf("P1.x vaut:%lf\n ",P1.x);
 	double b=norme(S1);
-	point  LA[3]={P1,P2,P3};
+	Point  LA[3]={P1,P2,P3};
 	obstacle O(3,LA);
 	affichage(O);
 	O.add(P1);
@@ -29,7 +33,7 @@ int main()
 	O.add(P2);
 	O.add(P3);
 	//obstacle G(O);
-	printf("La distance entre les points est de :%lf",a);
+	printf("La distance entre les Points est de :%lf",a);
 	printf("\n");
 	printf("La norme du segement est :%lf\n",b);
 
@@ -37,21 +41,44 @@ int main()
 	printf("P1.x vaut:%lf\n ",P1.x);
 	*/
 	//affichage(S1);
-	//point_segment1(S1,P3,0.1);
-	//point_segment(S1,P3,0.1);
+	//Point_segment1(S1,P3,0.1);
+	//Point_segment(S1,P3,0.1);
 	//affichage(S2);
 	//bool b=intersection_segment(S1,S2,0.1,0);
 	//printf("%d\n",b);
 
-	point liste_points1[4] = {P1,P2,P3,P4};
-	point liste_points2[4] = {P5,P6,P7,P8};
+    vector<Point> liste_points = {P1,P2,P3,P4};
+    vector<Point> liste_points_2 = {P5,P6,P7,P8};
+
+    const Obstacle ob1 = Obstacle(4,liste_points);
+    const Obstacle ob2 = Obstacle(4,liste_points_2);
+
+    //bool res = intersection_segment_polygon(S1,ob1);
+
+    //cout << ob1 << ob2 << endl;
+
+    const vector<Obstacle> vect_obst = {ob1,ob2};
+
+    Graph graphe = Graph(2,vect_obst);
+
+    cout << graphe << endl;
+
+    //cout << vect_obst[0] << vect_obst[1] << endl;
 
 
-	obstacle test1 = obstacle(4,liste_points1);
-	obstacle test2 = obstacle(4,liste_points2);
+    //vector<Segment> segments  = ob.segments_of_obstacle();
+    //cout << segments[0] << segments[1] << endl;
+
+    /*
+	Point liste_Points1[4] = {P1,P2,P3,P4};
+	Point liste_Points2[4] = {P5,P6,P7,P8};
+
+
+	obstacle test1 = obstacle(4,liste_Points1);
+	obstacle test2 = obstacle(4,liste_Points2);
     affichage(test1);
     affichage(test2);
-
+    */
     /*
     printf("m = %d",m);
 
@@ -69,12 +96,12 @@ int main()
     */
 
 
-    vector <obstacle> vect_obstacle;
-    vect_obstacle.push_back(test1);
+    //vector <obstacle> vect_obstacle;
+    //vect_obstacle.push_back(test1);
 
     //vect_obstacles.push_back(test1);
 
-    printf("ca marche toujours\n");
+    //printf("ca marche toujours\n");
     //bool valide;
 
 

@@ -5,95 +5,108 @@
 using namespace std ;
 
 
-class point
+class Point
 {
     public:
     double x,y;
-    point(double xi=0.,double yi=0.) :x(xi),y(yi){}
+    Point(double xi=0.,double yi=0.) :x(xi),y(yi){}
 };
-bool operator == (const point& P1,const point& P2);
-double distance(const point& P1, const point& P2);
+bool operator == (const Point& P1,const Point& P2);
+double distance(const Point& P1, const Point& P2);
+ostream & operator <<(ostream &, const Point&);
 
-class segment
+class Segment
 {
     public:
-    point P1, P2;
-    segment(const point& P1=point(), const point& P2=point());
+    Point P1, P2;
+    Segment(const Point& pa=Point(),const Point& pb=Point());
 
 };
-double produit_scalaire(const segment& S1,const segment& S2);
-double norme(const segment& S1);
-segment normale_au_milieu(const segment& S1);
-segment normale(const segment& S1);
-void affichage(const segment S);
-bool point_segment(const segment& S,const point& P,double eps);
-bool point_segment1(const segment& S,const point& P,double eps);
-bool intersection_segment(segment seg1,segment seg2,double epsilon);
-class arete: public segment
+
+bool operator ==(const Segment& , const Segment&);
+double produit_scalaire(const Segment& S1,const Segment& S2);
+double norme(const Segment& S1);
+Segment normale_au_milieu(const Segment& S1);
+Segment normale(const Segment& S1);
+bool point_segment(const Segment& S,const Point& P,double eps);
+bool point_segment1(const Segment& S,const Point& P,double eps);
+bool intersection_segment(Segment seg1,Segment seg2,double epsilon);
+
+ostream & operator <<(ostream &, const Segment&);
+
+class arete: public Segment
 {
 
 };
 /*
-class arc: public segment
+class arc: public Segment
 {
   public :
-    segment edge;
+    Segment edge;
     double length_arc;
-    arc(const segment& S,const double& Len):edge(S),length_arc(Len){};
+    arc(const Segment& S,const double& Len):edge(S),length_arc(Len){};
 
 };
 */
 
-class obstacle
+class Obstacle
 {
 	public:
     int nbsom;
-    vector<point> sommets;
-    obstacle();
-    obstacle(int ns,point * L); /*: n bsom(0){sommets=new point[ns];}*/
-    obstacle(const obstacle& Ob);
-    ~obstacle();
-    obstacle& operator=(const obstacle& Ob);
-    obstacle& operator+=(point& P);
-    obstacle& reset();
-
-
+    vector<Point> sommets;
+    //Obstacle();
+    Obstacle(int ns,const vector<Point> &obstacle_points); /*: n bsom(0){sommets=new Point[ns];}*/
+    Obstacle(const Obstacle& ob);
+    ~Obstacle();
+    Obstacle& operator=(const Obstacle& ob);
+    Obstacle& operator+=(Point& P);
+    Obstacle& reset();
+    vector<Segment> segments_of_obstacle() const;
 };
 
-class arc
+ostream& operator<<(ostream& os,const Obstacle& ob);
+
+bool intersection_segment(const Segment& seg1,const Segment& seg2, double epsilon,double eps);
+
+int comptage_intersection(const Segment &seg,const Obstacle& obst);
+
+bool intersection_segment_polygon(const Segment& seg,const Obstacle& polygone);
+
+
+class Arc
 {
   public :
-    segment edge;
+    Segment edge;
     double length_arc;
-    arc(const segment& S=segment(),const double& Len=0);
+    Arc(const Segment& S=Segment(),double Len=0);
 
 };
-ostream& operator<<(ostream& os,const arc& A);
+ostream& operator<<(ostream& os,const Arc& A);
 
 
-class graph
+
+
+bool is_arc_valide(const Segment& seg,const vector<Obstacle> & vect_obstacles, int nb_obstacles);
+
+
+class Graph
 {
     public:
-    arc * liste_arcs;
-    point * liste_sommets;
+    Arc * liste_arcs;
+    Point * liste_sommets;
     int nb_arcs;
 
-    graph(int nb_obstacles, vector<obstacle> & vect_obstacles);
-    ~graph();
+    Graph(int nb_Obstacles,const vector<Obstacle> & vect_obstacles);
+    ~Graph();
 
 };
 
-ostream & operator <<(ostream &, const graph &);
+ostream & operator <<(ostream &, const Graph &);
 
 
-void affichage(const obstacle& Ob);
+void affichage(const Obstacle& Ob);
 
-bool intersection_segment(segment seg1,segment seg2, double epsilon,double eps);
 
-bool intersection_segment_polygon(segment& seg,obstacle& polygone);
 
-int comptage_intersection(segment &seg,obstacle& obst);
-
-bool is_arc_valide(segment seg, vector<obstacle> & vect_obstacles, int nb_obstacles);
 
 #endif
