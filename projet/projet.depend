@@ -14,16 +14,19 @@
 	"classe.hpp"
 	<vector>
 
-1645555409 source:c:\users\yokoz\documents\ensta\2a\sim202\recup_git\projet\main.cpp
+1645572584 source:c:\users\yokoz\documents\ensta\2a\sim202\recup_git\projet\main.cpp
 	<iostream>
 	"classe.hpp"
 	<vector>
 
-1645554898 c:\users\yokoz\documents\ensta\2a\sim202\recup_git\projet\classe.hpp
+1645572424 c:\users\yokoz\documents\ensta\2a\sim202\recup_git\projet\classe.hpp
 	<iostream>
 	<vector >
+	<fstream>
+	<cstring>
+	<sstream>
 
-1645555606 source:c:\users\yokoz\documents\ensta\2a\sim202\recup_git\projet\classe.cpp
+1645572481 source:c:\users\yokoz\documents\ensta\2a\sim202\recup_git\projet\classe.cpp
 	<cstdlib>
 	<cmath>
 	<vector >

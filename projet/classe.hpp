@@ -2,6 +2,9 @@
 #define classe_hpp
 #include <iostream>
 #include <vector >
+#include <fstream>
+#include <cstring>
+#include <sstream>
 using namespace std ;
 
 
@@ -62,6 +65,7 @@ class Obstacle
     Obstacle& operator+=(Point& P);
     Obstacle& reset();
     vector<Segment> segments_of_obstacle() const;
+
 };
 
 ostream& operator<<(ostream& os,const Obstacle& ob);
@@ -96,7 +100,7 @@ class Graph
     Point * liste_sommets;
     int nb_arcs;
 
-    Graph(int nb_Obstacles,const vector<Obstacle> & vect_obstacles);
+    Graph(int nb_Obstacles,const vector<Obstacle> & vect_obstacles,const Point& a, const Point& b);
     ~Graph();
 
 };
@@ -104,7 +108,7 @@ class Graph
 ostream & operator <<(ostream &, const Graph &);
 
 
-void affichage(const Obstacle& Ob);
+vector<Obstacle> reading(char* nom_fichier);
 
 
 

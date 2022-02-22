@@ -206,6 +206,7 @@ Obstacle::Obstacle(const Obstacle& ob)
 Obstacle::~Obstacle()
 {
     sommets.clear();
+    nbsom = 0;
 }
 
 Obstacle& Obstacle::operator=(const Obstacle& ob)
@@ -406,13 +407,16 @@ bool is_arc_valide(const Segment& seg,const vector<Obstacle> & vect_obstacles, i
     return true;
 }
 
-Graph::Graph(int nb_obstacles ,const vector<Obstacle> & vect_obstacles)
+Graph::Graph(int nb_obstacles ,const vector<Obstacle> & vect_obstacles,const Point& a, const Point& b)
 {
     liste_sommets = new Point[100];
     int m = 0;
     int nbr_arcs_crees = 0;
 
     vector<Obstacle>::const_iterator it_ob;
+
+    liste_sommets[m] = a;
+    m++;
 
     for(it_ob=vect_obstacles.begin();it_ob!=vect_obstacles.end();++it_ob)
     {
@@ -422,6 +426,8 @@ Graph::Graph(int nb_obstacles ,const vector<Obstacle> & vect_obstacles)
             m++;
         }
     }
+    liste_sommets[m] = b;
+    m++;
 
 
     liste_arcs = new Arc[(m*(m-1))/2];
@@ -470,3 +476,38 @@ ostream & operator <<(ostream &os , const Graph &g)
     return os ;
 }
 
+vector<Obstacle> reading(char* nom_fichier){
+	vector<Obstacle> list_obstacles;
+	Obstacle ob(0,{});
+	ifstream infile(nom_fichier);
+	string line;
+	string obs("/");
+	string comment("%");
+	string end("#");
+	int nb_obs = 0;
+	double a,b;
+	while(getline(infile,line))
+	{
+		if (line[0] == obs[0]){
+			nb_obs++;
+			list_obstacles.push_back(ob);
+			ob.reset();
+			continue;
+		}
+		if (line[0] == comment[0]){
+			continue;
+		}
+		if (line[0] == end[0]){
+			break;
+		}
+		istringstream iss(line);
+		iss >> a >> b;
+		Point p(a,b);
+		ob+=p;
+	}
+	list_obstacles.push_back(ob);
+	infile.close();
+	printf("fin lecture \n");
+
+	return list_obstacles;
+}

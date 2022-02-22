@@ -5,6 +5,7 @@ using namespace std ;
 
 int main()
 {
+    /*
 	cout << "Hello world!" << endl;
 	Point P1=Point(0,3);
 	Point P2=Point(2,3);
@@ -15,9 +16,18 @@ int main()
 	Point P7 =Point(6,2);
 	Point P8 = Point(4,2);
 
+	*/
+
+	Point A = Point(-1,6);
+	Point B = Point(8,1);
+
 	//double a=distance(P1,P2);
-	Segment S1=Segment(P2,P8);
-	Segment S2=Segment(P1,P2);
+	//Segment S1=Segment(P2,P8);
+	//Segment S2=Segment(P1,P2);
+
+
+
+	char* nom_fichier = (char*)"obs.txt";
 
 
 	//cout << S1 << S2 << endl;
@@ -47,19 +57,21 @@ int main()
 	//bool b=intersection_segment(S1,S2,0.1,0);
 	//printf("%d\n",b);
 
-    vector<Point> liste_points = {P1,P2,P3,P4};
-    vector<Point> liste_points_2 = {P5,P6,P7,P8};
+    //vector<Point> liste_points = {P1,P2,P3,P4};
+    //vector<Point> liste_points_2 = {P5,P6,P7,P8};
 
-    const Obstacle ob1 = Obstacle(4,liste_points);
-    const Obstacle ob2 = Obstacle(4,liste_points_2);
+    //const Obstacle ob1 = Obstacle(4,liste_points);
+    //const Obstacle ob2 = Obstacle(4,liste_points_2);
 
     //bool res = intersection_segment_polygon(S1,ob1);
 
     //cout << ob1 << ob2 << endl;
 
-    const vector<Obstacle> vect_obst = {ob1,ob2};
+    const vector<Obstacle> vect_obst = reading(nom_fichier);
 
-    Graph graphe = Graph(2,vect_obst);
+    //cout << vect_obst[0] << vect_obst[1] << vect_obst[2] << endl;
+
+    Graph graphe = Graph(3,vect_obst,A,B);
 
     cout << graphe << endl;
 
