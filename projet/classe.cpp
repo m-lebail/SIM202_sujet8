@@ -340,7 +340,13 @@ int comptage_intersection(const Segment& seg,const Obstacle& obst)
 
     for(it=segments.begin();it!=segments.end();++it)
     {
-        if( intersection_segment(seg_milieu,*it,0.1,0) )
+        //on regarde si le segment prolongé a tapé un agnle
+        if( point_segment(seg_milieu,(*it).P1,0) ||  point_segment(seg_milieu,(*it).P2,0)  )
+        {
+            comptage_intersect++;
+            ++it;
+        }
+        else if( intersection_segment(seg_milieu,*it,0.1,0) )
         {
             comptage_intersect++;
         }
@@ -510,4 +516,21 @@ vector<Obstacle> reading(char* nom_fichier){
 	printf("fin lecture \n");
 
 	return list_obstacles;
+}
+
+void write_graphe(const Graph& graphe)
+{
+    ofstream myfile;
+    myfile.open("graphe.txt");
+
+    myfile << graphe.nb_arcs << "\n" << endl;
+
+    for(int i=0;i<graphe.nb_arcs;++i)
+    {
+        myfile << graphe.liste_arcs[i].edge.P1.x << " " << graphe.liste_arcs[i].edge.P1.y << "\n";
+        myfile << graphe.liste_arcs[i].edge.P2.x << " " << graphe.liste_arcs[i].edge.P2.y << "\n";
+        myfile << graphe.liste_arcs[i].length_arc << "\n" << endl;
+    }
+    myfile.close();
+
 }

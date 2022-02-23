@@ -18,7 +18,7 @@ int main()
 
 	*/
 
-	Point A = Point(-1,6);
+	Point A = Point(-4,6);
 	Point B = Point(8,1);
 
 	//double a=distance(P1,P2);
@@ -73,7 +73,9 @@ int main()
 
     Graph graphe = Graph(3,vect_obst,A,B);
 
-    cout << graphe << endl;
+    write_graphe(graphe);
+
+    //cout << graphe << endl;
 
     //cout << vect_obst[0] << vect_obst[1] << endl;
 

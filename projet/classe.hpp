@@ -110,7 +110,7 @@ ostream & operator <<(ostream &, const Graph &);
 
 vector<Obstacle> reading(char* nom_fichier);
 
-
+void write_graphe(const Graph& graphe);
 
 
 #endif
