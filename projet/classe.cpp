@@ -450,7 +450,7 @@ Graph::Graph(int nb_obstacles ,const vector<Obstacle> & vect_obstacles,const Poi
 
     liste_arcs = new Arc[(m*(m-1))/2];
     nb_arcs = (m*(m-1)/2);
-    int length_p_k = 0;
+    double length_p_k = 0;
 
     it_ob = vect_obstacles.begin();
 
@@ -596,8 +596,6 @@ vector<Point> dijkstra(const Graph& graphe)
     }
 
 
-    /*
-
     vector<Point> S(n,Point());
     S[0] = graphe.liste_sommets[0];
 
@@ -607,32 +605,64 @@ vector<Point> dijkstra(const Graph& graphe)
         T.push_back(graphe.liste_sommets[j]);
     }
 
+
+
+
     while( !T.empty() )
     {
-          vector<double>::iterator i_min = min_element(l.begin(),l.end());
+          //vector<double>::iterator i_min = min_element(l.begin(),l.end());
 
-          int i = distance(l.begin(), i_min);
+          //int i = distance(l.begin(), i_min);
 
-          Point point_a_retirer = graphe.liste_sommets[i];
+          double l_min = inf;
+          int i_min = -1;
 
-          vector<Point>::iterator new_end;
-          new_end = remove(T.begin(), T.end(), point_a_retirer);
+          for(int i=0;i<n;++i)
+          {
+            if(  find(T.begin(),T.end(), graphe.liste_sommets[i] ) != T.end()   )
+            {
+                if( l[i] < l_min )
+                {
+                    l_min = l[i];
+                    i_min = i;
+                }
+            }
+          }
 
-          S[i] = point_a_retirer;
+          /*
+          cout << "\n" << T.size() << endl;
+          cout << l_min << endl;
+          cout << i_min << endl;
+          */
+
+          Point point_a_retirer = graphe.liste_sommets[i_min];
+
+          //cout << point_a_retirer << endl;
+
+          T.erase(remove(T.begin(), T.end(), point_a_retirer), T.end());
+
+          S[i_min] = point_a_retirer;
 
           for(int j = 0 ; j<n ; ++j)
           {
-              if( (c[i][j] != inf) && (  find(T.begin(),T.end(), graphe.liste_sommets[j] )  != T.end()  )  )
+              if( (c[i_min][j] != inf) && (  find(T.begin(),T.end(), graphe.liste_sommets[j] )  != T.end()  )  )
               {
-                 if( l[j] > l[i] + c[i][j] )
+                 if( l[j] > l[i_min] + c[i_min][j] )
                  {
-                    l[j] = l[i] + c[i][j];
-                    p[j] = i;
+                    l[j] = l[i_min] + c[i_min][j];
+                    p[j] = graphe.liste_sommets[i_min];
                  }
               }
           }
 
     }
+
+    for(int i=0;i<n;++i)
+    {
+        cout << l[i] << " ";
+    }
+    cout << "\n" <<endl;
+
 
     //on reconstruit le chemin du premier sommet au dernier sommet à partir de p
 
@@ -642,6 +672,7 @@ vector<Point> dijkstra(const Graph& graphe)
     vector<Point>::iterator it = find(S.begin(),S.end(),depart_remonte);
     int indice = distance(S.begin(), it);
 
+
     while (depart_remonte != graphe.liste_sommets[0])
     {
         depart_remonte = p[indice];
@@ -649,9 +680,13 @@ vector<Point> dijkstra(const Graph& graphe)
         it = find(S.begin(),S.end(),depart_remonte);
         indice = distance(S.begin(), it);
     }
-    */
 
-    vector<Point> points_chemin = {};
+    vector<Point>::iterator its;
+
+    for(its=points_chemin.begin();its!=points_chemin.end();++its)
+    {
+        cout << *its;
+    }
 
     return( points_chemin  );
 
