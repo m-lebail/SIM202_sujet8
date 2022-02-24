@@ -78,6 +78,8 @@ int main()
 
     vector<Point> points_du_chemin = dijkstra(graphe);
 
+    write_optimal_path(points_du_chemin);
+
     //cout << graphe << endl;
 
     //cout << vect_obst[0] << vect_obst[1] << endl;

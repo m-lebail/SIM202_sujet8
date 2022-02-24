@@ -116,4 +116,6 @@ void write_graphe(const Graph& graphe);
 
 vector<Point> dijkstra(const Graph& graphe);
 
+void write_optimal_path(const vector<Point>& points_du_chemin);
+
 #endif

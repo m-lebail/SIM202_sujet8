@@ -35,6 +35,14 @@ end
 
 fclose(fileID);
 
+fileID = fopen('path.txt','r');
+
+nb_sommets_chemin = fscanf(fileID,formatSpec,[1 1]);
+
+path = fscanf(fileID,formatSpec_point,[2 nb_sommets_chemin]);
+
+fclose(fileID);
+
 
 figure; 
 hold on;
@@ -54,3 +62,17 @@ for i = 1:nb_arcs
          plot(  liste_arcs(1,:,i) ,   liste_arcs(2,:,i) ); 
      end
 end
+
+figure;
+hold on;
+
+scatter(START(1),START(2),'red');
+
+ob1 = polyshape(A(1,:),A(2,:));
+plot(ob1);
+ob2 = polyshape(B(1,:),B(2,:));
+plot(ob2);
+
+scatter(ENDING(1),ENDING(2),'red');
+
+plot(path(1,:),path(2,:),'green');
