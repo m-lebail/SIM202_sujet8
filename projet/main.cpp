@@ -71,9 +71,12 @@ int main()
 
     //cout << vect_obst[0] << vect_obst[1] << vect_obst[2] << endl;
 
-    Graph graphe = Graph(3,vect_obst,A,B);
+
+    Graph graphe = Graph(2,vect_obst,A,B);
 
     write_graphe(graphe);
+
+    vector<Point> points_du_chemin = dijkstra(graphe);
 
     //cout << graphe << endl;
 

@@ -1,7 +1,12 @@
 #include <cstdlib>
 #include <cmath>
 #include <vector >
+#include <limits>
+#include <algorithm>
 #include "classe.hpp"
+
+using namespace std ;
+
 
 ostream& operator<<(ostream& os,const Point& point){
     os << "("<< point.x << "," << point.y << ")"<<endl;
@@ -15,6 +20,11 @@ bool operator ==(const Point& point1,const Point& point2)
         return(true);
     }
     return(false);
+}
+
+bool operator !=(const Point& P1,const Point& P2)
+{
+    return !(P1 == P2);
 }
 
 double distance(const Point& point1, const Point& point2)
@@ -41,7 +51,9 @@ Segment::Segment(const Point& pa,const Point& pb)
 
 bool operator==(const Segment& seg1, const Segment& seg2)
 {
-    return ( (seg1.P1==seg2.P1) && (seg1.P2==seg2.P2) );
+    bool c1 = (seg1.P1==seg2.P1) && (seg1.P2==seg2.P2);
+    bool c2 = (seg1.P1==seg2.P2) && (seg1.P2 == seg2.P1);
+    return ( c1 || c2 );
 }
 
 double produit_scalaire(const Segment& S1,const Segment& S2)
@@ -128,18 +140,18 @@ bool point_segment(const Segment& S,const Point& P,double eps)
     Point E=Point(x_E,y_E);
     cout << E << endl;
     double d=distance(E,P);
-    printf("d vaut %lf\n",d);
+    //printf("d vaut %lf\n",d);
     if(d<=eps)
     {
         double MIN=min(S.P1.x,S.P2.x)-eps;
         double MAX=max(S.P1.x,S.P2.x)+eps;
         if((MIN<=x_E)&&(MAX>=x_E))
         {
-            printf("Le Point est dans le segment\n");
+            //printf("Le Point est dans le segment\n");
             return(true);
         }
     }
-    printf("Le Point n'est pas dans le segment\n");
+    //printf("Le Point n'est pas dans le segment\n");
     return(false);
 }
 
@@ -434,7 +446,7 @@ Graph::Graph(int nb_obstacles ,const vector<Obstacle> & vect_obstacles,const Poi
     }
     liste_sommets[m] = b;
     m++;
-
+    nb_sommets = m;
 
     liste_arcs = new Arc[(m*(m-1))/2];
     nb_arcs = (m*(m-1)/2);
@@ -532,5 +544,115 @@ void write_graphe(const Graph& graphe)
         myfile << graphe.liste_arcs[i].length_arc << "\n" << endl;
     }
     myfile.close();
+
+}
+
+
+vector<Point> dijkstra(const Graph& graphe)
+{
+    int n = graphe.nb_sommets;
+    double inf = std::numeric_limits<double>::infinity();
+
+    vector <vector <double> > c(n, vector<double>(n,inf));
+
+    for (int i=0; i<n; ++i)
+    {
+        for(int j=i+1;j<n;++j)
+        {
+            int k = (n-1)*i - i*(i+1)/2 + j - 1;
+            double val;
+            if( graphe.liste_arcs[ k ].length_arc == -1 )
+            {
+                val = inf;
+            }
+            else
+            {
+                val = graphe.liste_arcs[ k ].length_arc;
+            }
+            c[i][j] = val;
+            c[j][i] = val;
+        }
+    }
+
+    vector<double> l = c[0];
+
+    vector<Point> p(n,Point());
+
+    for(int j=1;j<n;++j)
+    {
+        if( c[0][j] < inf )
+        {
+            p[j] = graphe.liste_sommets[0];
+        }
+    }
+
+    for(int i=0;i<n;++i)
+    {
+        for(int j=0;j<n;++j)
+        {
+            cout << c[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+
+    /*
+
+    vector<Point> S(n,Point());
+    S[0] = graphe.liste_sommets[0];
+
+    vector<Point> T;
+    for(int j=1;j<n;++j)
+    {
+        T.push_back(graphe.liste_sommets[j]);
+    }
+
+    while( !T.empty() )
+    {
+          vector<double>::iterator i_min = min_element(l.begin(),l.end());
+
+          int i = distance(l.begin(), i_min);
+
+          Point point_a_retirer = graphe.liste_sommets[i];
+
+          vector<Point>::iterator new_end;
+          new_end = remove(T.begin(), T.end(), point_a_retirer);
+
+          S[i] = point_a_retirer;
+
+          for(int j = 0 ; j<n ; ++j)
+          {
+              if( (c[i][j] != inf) && (  find(T.begin(),T.end(), graphe.liste_sommets[j] )  != T.end()  )  )
+              {
+                 if( l[j] > l[i] + c[i][j] )
+                 {
+                    l[j] = l[i] + c[i][j];
+                    p[j] = i;
+                 }
+              }
+          }
+
+    }
+
+    //on reconstruit le chemin du premier sommet au dernier sommet à partir de p
+
+
+    Point depart_remonte = graphe.liste_sommets[n-1];
+    vector<Point> points_chemin = {depart_remonte};
+    vector<Point>::iterator it = find(S.begin(),S.end(),depart_remonte);
+    int indice = distance(S.begin(), it);
+
+    while (depart_remonte != graphe.liste_sommets[0])
+    {
+        depart_remonte = p[indice];
+        points_chemin.push_back(depart_remonte);
+        it = find(S.begin(),S.end(),depart_remonte);
+        indice = distance(S.begin(), it);
+    }
+    */
+
+    vector<Point> points_chemin = {};
+
+    return( points_chemin  );
 
 }

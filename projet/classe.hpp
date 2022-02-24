@@ -15,6 +15,7 @@ class Point
     Point(double xi=0.,double yi=0.) :x(xi),y(yi){}
 };
 bool operator == (const Point& P1,const Point& P2);
+bool operator != (const Point& P1,const Point& P2);
 double distance(const Point& P1, const Point& P2);
 ostream & operator <<(ostream &, const Point&);
 
@@ -99,6 +100,7 @@ class Graph
     Arc * liste_arcs;
     Point * liste_sommets;
     int nb_arcs;
+    int nb_sommets;
 
     Graph(int nb_Obstacles,const vector<Obstacle> & vect_obstacles,const Point& a, const Point& b);
     ~Graph();
@@ -112,5 +114,6 @@ vector<Obstacle> reading(char* nom_fichier);
 
 void write_graphe(const Graph& graphe);
 
+vector<Point> dijkstra(const Graph& graphe);
 
 #endif
