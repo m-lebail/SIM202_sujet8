@@ -138,7 +138,8 @@ bool point_segment(const Segment& S,const Point& P,double eps)
     double x_E=S.P1.x+projete*(S.P2.x-S.P1.x)/norme(S);
     double y_E=S.P1.y+projete*(S.P2.y-S.P1.y)/norme(S);
     Point E=Point(x_E,y_E);
-    cout << E << endl;
+    //cout << S << "norme : " << norme(S) <<endl;
+    //cout << E << endl;
     double d=distance(E,P);
     //printf("d vaut %lf\n",d);
     if(d<=eps)
@@ -256,6 +257,7 @@ vector<Segment> Obstacle::segments_of_obstacle() const
     }
 
     segments.push_back(Segment(sommets[nbsom-1],sommets[0]));
+
     return(segments);
 
 }
@@ -294,8 +296,10 @@ bool intersection_segment(const Segment& seg1,const Segment& seg2, double epsilo
     {
         return false;
     }
-    if(  abs( produit_scalaire(seg1,seg2) - norme(seg1)*norme(seg2) ) <= epsilon )
+    if(  abs( produit_scalaire(seg1,seg2) - norme(seg1)*norme(seg2) ) == 0 )
     {
+        //cout << seg1;
+        //cout << seg2;
         if(point_segment(seg2,point_a,epsilon) || point_segment(seg2,point_b,epsilon) ) //il n'y avait pas d'argument epsilon
         {
             return true;
@@ -347,18 +351,14 @@ int comptage_intersection(const Segment& seg,const Obstacle& obst)
     Segment seg_milieu = Segment(M,M1);
     int comptage_intersect = 0;
 
-    const vector<Segment> segments = obst.segments_of_obstacle();
-    vector<Segment>::const_iterator it;
+    const vector<Segment> segments_obst = obst.segments_of_obstacle();
 
-    for(it=segments.begin();it!=segments.end();++it)
+
+    for(int i=0;i<obst.nbsom;++i)
     {
+        //&& !(point_segment(seg_milieu,segments_obst[i].P2,0))
         //on regarde si le segment prolongé a tapé un agnle
-        if( point_segment(seg_milieu,(*it).P1,0) ||  point_segment(seg_milieu,(*it).P2,0)  )
-        {
-            comptage_intersect++;
-            ++it;
-        }
-        else if( intersection_segment(seg_milieu,*it,0.1,0) )
+        if( intersection_segment(seg_milieu,segments_obst[i],0.1,0)  && !(point_segment(seg_milieu,segments_obst[i].P2,0)) )
         {
             comptage_intersect++;
         }
@@ -370,11 +370,24 @@ int comptage_intersection(const Segment& seg,const Obstacle& obst)
 //renvoie true si le segment est valide par rapport à l'obstacle passé en paramètre
 bool intersection_segment_polygon(const Segment& seg,const Obstacle& polygone)
 {
+
+
     const vector<Segment> segments = polygone.segments_of_obstacle();
     vector<Segment>::const_iterator it;
 
+    //on compte le nombre de coins d'obstacle qui correspondent aux etremites du segment
+    //si 2 alors le segment est soit une diagonale du polygone au sens large
+    //dans ce cas on s'il passe le premier test, on appelle comptage
+    //intersection
+    int nombre_coins_obstacle = 0;
+
     for(it=segments.begin();it!=segments.end();++it)
     {
+        if( (seg.P1==(*it).P1) || (seg.P1==(*it).P2) || (seg.P2==(*it).P1) || (seg.P2==(*it).P2) )
+        {
+            nombre_coins_obstacle++;
+        }
+
         if(intersection_segment(seg,*it,0.1,0))
         {
             return false;
@@ -384,17 +397,18 @@ bool intersection_segment_polygon(const Segment& seg,const Obstacle& polygone)
             return true;
         }
     }
-    int nombre_intersection_projete_milieu = comptage_intersection(seg,polygone);
 
-    if(nombre_intersection_projete_milieu % 2 == 0)
+    if(nombre_coins_obstacle == 4)
     {
-        return true;
-    }
-    else
-    {
-        return false;
+        int nombre_intersection_projete_milieu = comptage_intersection(seg,polygone);
+
+        if(nombre_intersection_projete_milieu % 2 != 0)
+        {
+            return false;
+        }
     }
 
+    return true;
 
 }
 
@@ -427,7 +441,7 @@ bool is_arc_valide(const Segment& seg,const vector<Obstacle> & vect_obstacles, i
 
 Graph::Graph(int nb_obstacles ,const vector<Obstacle> & vect_obstacles,const Point& a, const Point& b)
 {
-    liste_sommets = new Point[100];
+    liste_sommets = new Point[500];
     int m = 0;
     int nbr_arcs_crees = 0;
 
@@ -452,6 +466,7 @@ Graph::Graph(int nb_obstacles ,const vector<Obstacle> & vect_obstacles,const Poi
     nb_arcs = (m*(m-1)/2);
     double length_p_k = 0;
 
+
     it_ob = vect_obstacles.begin();
 
     for(int k=0;k<m;++k)
@@ -459,6 +474,7 @@ Graph::Graph(int nb_obstacles ,const vector<Obstacle> & vect_obstacles,const Poi
         for(int p=k+1;p<m;++p)
         {
             const Segment segment_p_k = Segment(liste_sommets[k],liste_sommets[p]);
+
             if(is_arc_valide(segment_p_k,vect_obstacles,nb_obstacles))
             {
                 Point p_k = liste_sommets[k];
@@ -469,8 +485,11 @@ Graph::Graph(int nb_obstacles ,const vector<Obstacle> & vect_obstacles,const Poi
             {
                 length_p_k = -1;
             }
+            //cout << segment_p_k << " distance : " << length_p_k;
             liste_arcs[nbr_arcs_crees] = Arc(Segment(liste_sommets[k],liste_sommets[p]),length_p_k);
             nbr_arcs_crees++;
+
+
         }
     }
 
