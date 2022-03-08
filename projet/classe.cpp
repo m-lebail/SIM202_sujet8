@@ -27,6 +27,31 @@ bool operator !=(const Point& P1,const Point& P2)
     return !(P1 == P2);
 }
 
+Point operator + (const Point& P1,const Point& P2)
+{
+    Point somme;
+    somme.x = P1.x + P2.x;
+    somme.y = P1.y + P2.y;
+    return somme;
+}
+
+Point operator - (const Point& P1,const Point& P2)
+{
+    Point diff;
+    diff.x = P1.x - P2.x;
+    diff.y = P1.y - P2.y;
+    return diff;
+}
+
+Point operator*(const Point & P, double u)
+{
+    Point mult;
+    mult.x = P.x * u;
+    mult.y = P.y*u;
+
+    return mult;
+}
+
 double distance(const Point& point1, const Point& point2)
 {
     double distance;
@@ -39,6 +64,11 @@ double distance(const Point& point1, const Point& point2)
     distance=(point1.x-point2.x)*(point1.x-point2.x)+(point1.y-point2.y)*(point1.y-point2.y);
     distance=sqrt(distance);
     return distance;
+}
+
+double norme(const Point& P)
+{
+    return sqrt( (P.x)*(P.x) + (P.y)*(P.y) );
 }
 
 
@@ -55,6 +85,26 @@ bool operator==(const Segment& seg1, const Segment& seg2)
     bool c2 = (seg1.P1==seg2.P2) && (seg1.P2 == seg2.P1);
     return ( c1 || c2 );
 }
+
+Segment operator+(const Segment& seg,const Point& P)
+{
+    Segment translate;
+    translate.P1 = seg.P1 + P;
+    translate.P2 = seg.P2 + P;
+
+    return translate;
+}
+
+Segment operator-(const Segment& seg,const Point& P)
+{
+    Segment translate;
+    translate.P1 = seg.P1 - P;
+    translate.P2 = seg.P2 - P;
+
+    return translate;
+}
+
+
 
 double produit_scalaire(const Segment& S1,const Segment& S2)
 {
@@ -117,6 +167,7 @@ Segment normale_au_milieu(const Segment& S1)
     Segment A=Segment(M,N);
     return(A);
 }
+
 Segment normale(const Segment& S1)
 {
     Point P1=S1.P1;
@@ -130,6 +181,27 @@ Segment normale(const Segment& S1)
     Segment A=Segment(M,N);
     return(A);
 }
+
+Segment normale_point(const Segment& S1,const Point& P)
+{
+    Point P1=S1.P1;
+    Point P2=S1.P2;
+    if(P2 == P)
+    {
+        P2=P1;
+        P1=P;
+    }
+    double x_M=P1.x;
+    double y_M=P1.y;
+    double x_N=P2.y-P1.y+x_M;
+    double y_N=P1.x-P2.x+y_M;
+    Point M=Point(x_M,y_M);
+    Point N=Point(x_N,y_N);
+    Segment A=Segment(M,N);
+    return(A);
+}
+
+
 
 bool point_segment(const Segment& S,const Point& P,double eps)
 {
@@ -174,6 +246,33 @@ bool point_segment1(const Segment& S,const Point& P,double eps)
     printf("Le Point n'est pas dans le segment\n");
     return(false);
 }
+/*
+Segment translater_exterieur(const Segment& seg, double r,const Obstacle& ob)
+{
+    Segment normale_milieu = normale_au_milieu(seg);
+    Point normale_ext = normale_milieu.P2 - normale_milieu.P1;
+    //on a récupéré la normale extérieur
+
+    Point normalise_normale_ext;
+    normalise_normale_ext = normale_ext * (1/norme(normale_ext));
+
+
+    Segment trans_ext_sens_1;
+    trans_ext_sens_1.P1 = seg.P1 + normalise_normale_ext*r;
+    trans_ext_sens_1.P2 = seg.P2 + normalise_normale_ext*r;
+
+    Segment trans_ext_sens_2;
+    trans_ext_sens_1.P1 = seg.P1 + normalise_normale_ext*(-r);
+    trans_ext_sens_2.P2 = seg.P2 + normalise_normale_ext*(-r);
+
+
+
+
+    return trans_ext;
+
+
+}
+*/
 
 ostream& operator<<(ostream& os,const Segment& seg){
     os << "Le premier point du segment est : "<< seg.P1 << endl;
@@ -283,6 +382,8 @@ void affichage(const obstacle& Ob)
     }
 }
 */
+
+
 
 //true si les segments s'intersectent et false sinon
 bool intersection_segment(const Segment& seg1,const Segment& seg2, double epsilon,double eps)
@@ -552,7 +653,7 @@ vector<Obstacle> reading(char* nom_fichier){
 void write_graphe(const Graph& graphe)
 {
     ofstream myfile;
-    myfile.open("graphe.txt");
+    myfile.open("graphe3.txt");
 
     myfile << graphe.nb_arcs << "\n" << endl;
 

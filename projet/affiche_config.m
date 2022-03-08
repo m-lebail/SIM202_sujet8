@@ -1,9 +1,9 @@
 %%pkg load matgeom;
 
-fileID = fopen('obstacles2.txt','r');
+fileID = fopen('obstacles3.txt','r');
 formatSpec = '%f %f';
-sizeA = [2 6];
-sizeB = [2 4];
+sizeA = [2 4];
+sizeB = [2 3];
 sizeC = [2 4];
 
 A = fscanf(fileID,formatSpec,sizeA);
@@ -11,12 +11,12 @@ B = fscanf(fileID,formatSpec,sizeB);
 C = fscanf(fileID,formatSpec,sizeC);
 fclose(fileID);
 
-fileID = fopen('start_end2.txt','r');
+fileID = fopen('start_end.txt','r');
 START = fscanf(fileID,formatSpec,[2 1]);
 ENDING = fscanf(fileID,formatSpec,[2 1]);
 fclose(fileID);
 
-fileID = fopen('graphe.txt','r');
+fileID = fopen('graphe3.txt','r');
 formatSpec = '%f';
 size = [1 1];
 nb_arcs = fscanf(fileID,formatSpec,size);

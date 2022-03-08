@@ -18,18 +18,23 @@ int main()
 
 	*/
 
-	Point A = Point(0.5,2.5);
-	Point B = Point(6,4.5);
+	Point A = Point(-1,1);
 
-	Point C = Point(1.5,3.5);
+	Point B = Point(5,0);
+
+	//Segment test = Segment(A,B);
+
+
+	//Segment C = translater_exterieur(test,2);
+
+	//cout << C << endl;
 
 	//double a=distance(P1,P2);
 	//Segment S1=Segment(P2,P8);
 	//Segment S2=Segment(P1,P2);
 
-    Segment test = Segment(A,C);
 
-	char* nom_fichier = (char*)"obs2.txt";
+	char* nom_fichier = (char*)"obs3.txt";
 
 
 	//cout << S1 << S2 << endl;
@@ -71,14 +76,16 @@ int main()
 
     const vector<Obstacle> vect_obst = reading(nom_fichier);
 
+    /*
     const Obstacle ob1 = vect_obst[0];
     const Obstacle ob2 = vect_obst[1];
     const Obstacle ob3 = vect_obst[2];
 
+
     cout << ob1;
     cout << ob2;
     cout << ob3 << endl;
-
+    */
     //cout << vect_obst[0] << vect_obst[1] << vect_obst[2] << endl;
 
 

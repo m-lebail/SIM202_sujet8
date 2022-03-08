@@ -16,7 +16,11 @@ class Point
 };
 bool operator == (const Point& P1,const Point& P2);
 bool operator != (const Point& P1,const Point& P2);
+Point operator + (const Point& P1,const Point& P2);
+Point operator - (const Point& P1,const Point& P2);
+Point operator*(const Point &, double);
 double distance(const Point& P1, const Point& P2);
+double norme(const Point& P);
 ostream & operator <<(ostream &, const Point&);
 
 class Segment
@@ -28,15 +32,22 @@ class Segment
 };
 
 bool operator ==(const Segment& , const Segment&);
+Segment operator+(const Segment&,const Point&);
+Segment operator-(const Segment&,const Point&);
+Segment operator*(const Segment&, double);
 double produit_scalaire(const Segment& S1,const Segment& S2);
 double norme(const Segment& S1);
 Segment normale_au_milieu(const Segment& S1);
+Segment normale_point(const Segment& S1,const Point& P);
 Segment normale(const Segment& S1);
 bool point_segment(const Segment& S,const Point& P,double eps);
 bool point_segment1(const Segment& S,const Point& P,double eps);
 bool intersection_segment(Segment seg1,Segment seg2,double epsilon);
 
 ostream & operator <<(ostream &, const Segment&);
+
+
+
 
 class arete: public Segment
 {
@@ -77,6 +88,7 @@ int comptage_intersection(const Segment &seg,const Obstacle& obst);
 
 bool intersection_segment_polygon(const Segment& seg,const Obstacle& polygone);
 
+Segment translater_exterieur(const Segment& seg,double r,const Obstacle& ob);
 
 class Arc
 {
