@@ -76,32 +76,35 @@ int main()
 
     const vector<Obstacle> vect_obst = reading(nom_fichier);
 
-    /*
+
     const Obstacle ob1 = vect_obst[0];
-    const Obstacle ob2 = vect_obst[1];
-    const Obstacle ob3 = vect_obst[2];
 
+    cout << ob1 << endl;
 
-    cout << ob1;
-    cout << ob2;
-    cout << ob3 << endl;
-    */
+    vector<Point> normales = normales_ext(ob1);
+
+    cout << normales[0];
+    cout << normales[1];
+    cout << normales[2];
+    cout << normales[3];
+    cout << normales[4];
+
     //cout << vect_obst[0] << vect_obst[1] << vect_obst[2] << endl;
 
 
-    Graph graphe = Graph(3,vect_obst,A,B);
+    //Graph graphe = Graph(3,vect_obst,A,B);
     //vector<Segment> segments  = ob2.segments_of_obstacle();
 
 
 
     //bool res = intersection_segment(test,segments[0],0.1,0);
     //cout << res << endl;
-    write_graphe(graphe);
+    //write_graphe(graphe);
 
 
-    vector<Point> points_du_chemin = dijkstra(graphe);
+    //vector<Point> points_du_chemin = dijkstra(graphe);
 
-    write_optimal_path(points_du_chemin);
+    //write_optimal_path(points_du_chemin);
 
 
     //cout << graphe << endl;

@@ -90,6 +90,8 @@ bool intersection_segment_polygon(const Segment& seg,const Obstacle& polygone);
 
 Segment translater_exterieur(const Segment& seg,double r,const Obstacle& ob);
 
+vector<Point> normales_ext(const Obstacle& ob);
+
 class Arc
 {
   public :

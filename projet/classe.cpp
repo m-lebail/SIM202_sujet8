@@ -104,7 +104,12 @@ Segment operator-(const Segment& seg,const Point& P)
     return translate;
 }
 
+Segment operator*(const Segment& seg, double u)
+{
+    Segment mult;
 
+
+}
 
 double produit_scalaire(const Segment& S1,const Segment& S2)
 {
@@ -385,6 +390,7 @@ void affichage(const obstacle& Ob)
 
 
 
+
 //true si les segments s'intersectent et false sinon
 bool intersection_segment(const Segment& seg1,const Segment& seg2, double epsilon,double eps)
 {
@@ -437,6 +443,68 @@ bool intersection_segment(const Segment& seg1,const Segment& seg2, double epsilo
         return false;
     }
 
+}
+
+vector<Point> normales_ext(const Obstacle& ob)
+{
+    const vector<Segment> segments = ob.segments_of_obstacle();
+    vector<Point> normales;
+
+    vector<Segment>::const_iterator it;
+
+
+    for(it=segments.begin();it!=segments.end();++it)
+    {
+        Segment normale_non_translate = normale_au_milieu(*it);
+
+        Point point_sur_segment;
+
+        if( point_segment(*it,normale_non_translate.P1,0.01) )
+        {
+            point_sur_segment = normale_non_translate.P1;
+        }
+        else
+        {
+            point_sur_segment = normale_non_translate.P2;
+        }
+
+        Point candidat1 = normale_non_translate.P2 - normale_non_translate.P1;
+        Point candidat2 = normale_non_translate.P1 - normale_non_translate.P2;
+
+        Point test_cand1 = (candidat1 * 100) + point_sur_segment;
+        Point test_cand2 = (candidat2 * 100) + point_sur_segment;
+
+        Segment cand1 = Segment( point_sur_segment , test_cand1 );
+        Segment cand2 = Segment( point_sur_segment, test_cand2 );
+
+
+        int comptage = 0;
+
+        for(int i=0;i<ob.nbsom;++i)
+        {
+            if( intersection_segment(cand1,segments[i],0.1,0)  )
+            {
+                comptage++;
+            }
+        }
+
+        cout << cand1 << endl;
+        cout << "comptage = " << comptage << endl;
+
+        if(comptage % 2 == 1)
+        {
+            normales.push_back( candidat1 * (1/norme(candidat1)) );
+        }
+        else
+        {
+            normales.push_back( candidat1 * (1/norme(candidat1)) );
+        }
+
+        cout << *it << endl;
+    }
+
+
+    return(normales);
 }
 
 int comptage_intersection(const Segment& seg,const Obstacle& obst)
